@@ -1,33 +1,60 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "jsx": "preserve",
+    "target": "ES2018",
     "module": "ESNext",
-    "moduleResolution": "node",
-    "rootDir": "./src",
-    "baseUrl": ".",
-    "paths": {
-      "common/*": [
-        "src/common/*"
-      ],
-      "@/*": [
-        "src/*"
-      ]
-    },
-    "strict": true,
-    "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "importHelpers": true,
-    "noUnusedLocals": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedParameters": true,
-    "noEmit": true,
-    "skipLibCheck": true
+    "lib": [
+      "es2018.promise",
+      "dom",
+      "dom.iterable",
+      "es7",
+      "es2017.object"
+    ],
+    "allowJs": true,
+    "jsx": "react",
+    "resolveJsonModule": true,
+    "declaration": true,
+    "outDir": "./lib", /* Redirect output structure to the directory. */
+    "rootDir": "./src", /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    "importHelpers": true, /* Import emit helpers from 'tslib'. */
+    "strict": true,
+    "noImplicitAny": false, /* Raise error on expressions and declarations with an implied 'any' type. */
+    "strictNullChecks": true, /* Enable strict null checks. */
+    "noEmitHelpers": true,
+    "skipLibCheck": true,
+    "noUnusedLocals": false, /* Report errors on unused locals. */
+    "noUnusedParameters": false, /* Report errors on unused parameters. */
+    "moduleResolution": "node", /* Specify module resolution strategy: 'NodeJs' (Node.js) or 'Classic' (TypeScript pre-1.6). */
+    "baseUrl": ".", /* Base directory to resolve non-absolute module names. */
+    "typeRoots": [
+      "node_modules/@types"
+    ], /* List of folders to include type definitions from. */
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "components/*": [
+        "./node_modules/modules-1/lib/components/*",
+      ],
+      "modules-1/*": [
+        "./node_modules/modules-1/lib/*",
+      ],
+    }
   },
   "include": [
-    "src",
-    "src/index.tsx",
-    "src/index.tsx"
+    "src"
+  ],
+  "exclude": [
+    "lib",
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts",
+    "tslint:latest",
+    "tslint-config-prettier"
   ]
 }

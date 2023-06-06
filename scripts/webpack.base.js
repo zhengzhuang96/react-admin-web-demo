@@ -2,7 +2,7 @@
  * @Author: {zhengzhuang}
  * @Date: 2023-06-05 21:44:16
  * @LastEditors: {zhengzhuang}
- * @LastEditTime: 2023-06-05 23:01:38
+ * @LastEditTime: 2023-06-06 17:51:03
  * @Description:
  */
 const path = require("path");
@@ -11,7 +11,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: path.resolve(__dirname, "../src/index.tsx"),
   output: {
-    path: path.resolve(__dirname, "../dist"), // 打包后的代码放在dist目录下
+    path: path.resolve(process.cwd(), "./dist"), // 打包后的代码放在dist目录下
     filename: "[name].[contenthash:8].js", // 打包的文件名
   },
   resolve: {
@@ -19,6 +19,11 @@ module.exports = {
     extensions: [".mjs", ".js", ".json", ".jsx", ".ts", ".tsx"], // 如果项目中只有 tsx 或 ts 可以将其写在最前面
     alias: {
       "@": path.resolve(__dirname, "../src"),
+      components: path.resolve(
+        __dirname,
+        "../node_modules/modules-1/lib/components"
+      ),
+      "modules-1": path.resolve(__dirname, "../node_modules/modules-1/lib"),
     },
   },
   module: {
