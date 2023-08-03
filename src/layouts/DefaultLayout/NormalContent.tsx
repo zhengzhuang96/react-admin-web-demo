@@ -74,7 +74,7 @@ const NormalContent: React.FC = () => {
         <Tabs.TabPane
           closable={false}
           // tab={<Popover {...this.props} pane={pane} index={index} />}
-          tab="1"
+          tab="工作台"
           key="1"
         >
           1
