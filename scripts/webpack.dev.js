@@ -1,8 +1,8 @@
 /*
  * @Author: {zhengzhuang}
- * @Date: 2023-06-05 21:44:08
+ * @Date: 2023-07-20 17:30:56
  * @LastEditors: {zhengzhuang}
- * @LastEditTime: 2023-06-05 22:14:38
+ * @LastEditTime: 2023-07-21 15:08:26
  * @Description:
  */
 const { merge } = require("webpack-merge");
@@ -24,9 +24,7 @@ module.exports = merge(base, {
           {
             loader: "postcss-loader",
             options: {
-              postcssOptions: {
-                plugins: [require("postcss-preset-env")],
-              },
+              // postcssOptions: [["postcss-preset-env", {}]],
             },
           },
           "less-loader",

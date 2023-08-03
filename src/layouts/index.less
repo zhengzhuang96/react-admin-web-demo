@@ -1,0 +1,45 @@
+.ydy-normal-container {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  min-width: 820px;
+}
+
+.header-style {
+  text-align: center;
+  color: #000000;
+  line-height: 60px;
+  background-color: #fff;
+  width: 100%;
+  height: 60px;
+
+  p {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.ydy-normal-body {
+  height: calc(100vh - 60px);
+  display: flex;
+
+  .ydy-normal-nav {
+    text-align: center;
+    line-height: 120px;
+    color: #fff;
+    background-color: #ffffff;
+    overflow-y: auto;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    transition: width .2s linear;
+    position: relative;
+  }
+
+  .ydy-normal-content {
+    text-align: center;
+    min-height: 120;
+    line-height: 120px;
+    color: #fff;
+    background-color: #f4f5f7;
+  }
+}

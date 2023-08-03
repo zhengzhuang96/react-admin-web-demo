@@ -1,14 +1,14 @@
 /*
  * @Author: {zhengzhuang}
- * @Date: 2023-06-05 21:43:54
+ * @Date: 2023-07-20 17:31:10
  * @LastEditors: {zhengzhuang}
- * @LastEditTime: 2023-06-05 23:03:06
+ * @LastEditTime: 2023-07-20 17:44:45
  * @Description:
  */
 const { merge } = require("webpack-merge");
-const base = require("./webpack.base.js");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const base = require("./webpack.base.js");
 
 module.exports = merge(base, {
   mode: "production", // 生产模式
@@ -48,7 +48,7 @@ module.exports = merge(base, {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "assets/css/[contenthash:8].css", // 将css单独提测出来放在assets/css 下
+      filename: "assets/css/[hash:8].css", // 将css单独提测出来放在assets/css 下
     }),
   ],
 });
