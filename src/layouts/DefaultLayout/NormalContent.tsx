@@ -2,7 +2,7 @@
  * @Author: {zhengzhuang}
  * @Date: 2023-08-03 16:22:17
  * @LastEditors: {zhengzhuang}
- * @LastEditTime: 2023-08-11 16:08:40
+ * @LastEditTime: 2023-08-15 18:42:26
  * @Description:
  */
 import * as React from 'react';
@@ -70,6 +70,7 @@ const NormalContent: React.FC = () => {
   };
 
   const remove = (targetKey: TargetKey) => {
+    console.log('targetKey', targetKey);
     const targetIndex = items.findIndex((pane) => pane.key === targetKey);
     const newPanes = items.filter((pane) => pane.key !== targetKey);
     if (newPanes.length && targetKey === activeKey) {
@@ -105,7 +106,7 @@ const NormalContent: React.FC = () => {
         {map(RouteList, (pane) => {
           return (
             <Tabs.TabPane
-              closable={pane?.path !== '/workplace'}
+              closable={pane?.path !== '/wel/index'}
               // tab={<Popover {...this.props} pane={pane} index={pane?.path} />}
               tab={pane?.path}
               key={pane?.path}
