@@ -2,43 +2,49 @@
  * @Author: {zhengzhuang}
  * @Date: 2023-08-03 16:22:17
  * @LastEditors: {zhengzhuang}
- * @LastEditTime: 2023-08-15 18:42:26
+ * @LastEditTime: 2023-08-16 15:25:10
  * @Description:
  */
 import * as React from 'react';
 import { useRef, useState, useEffect } from 'react';
 import { Popover, Tabs } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { map } from 'lodash';
 import RouteList from '../../config/router';
 import AsyncComponent from './AsyncComponent';
+import { getDefaultMenu, removeOpenMenu } from '../../utils/menuTab';
+import { setMenuTabs } from '../../store/model/user';
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
-const defaultPanes = new Array(2).fill(null).map((_, index) => {
-  const id = String(index + 1);
-  return {
-    label: `Tab ${id}`,
-    children: `Content of Tab Pane ${index + 1}`,
-    key: id,
-  };
-});
+function findMatchingPaths(array1: any, array2: any[]) {
+  const matchingPaths = [];
 
-const getRoutesContainsSelf = (path: string): any => {
-  for (let i = 0; i < RouteList.length; i++) {
-    const element = RouteList[i];
-    if (path === element?.path) {
-      return [element];
+  for (const item1 of array1) {
+    const matchingItem = array2.find((item2) => item2.path === item1.key);
+    if (matchingItem) {
+      matchingPaths.push(matchingItem);
     }
   }
+
+  return matchingPaths;
+}
+
+const getRoutesContainsSelf = (menuList: any): any => {
+  const matchingPaths = findMatchingPaths(menuList, RouteList);
+  return matchingPaths;
 };
 
 const NormalContent: React.FC = () => {
-  const [activeKey, setActiveKey] = useState(defaultPanes[0].key);
-  const [items, setItems] = useState(defaultPanes);
+  // const [menuList, setMenuList] = useState<any>([]);
+  const [activeKey, setActiveKey] = useState<string>();
+  const [items, setItems] = useState<any>();
   const newTabIndex = useRef(0);
   const navigate = useNavigate();
   const route = useLocation();
+  const dispatch = useDispatch();
+  const { menuTabs } = useSelector((store: any) => store.user);
 
   const onChange = (key: string) => {
     setActiveKey(key);
@@ -53,34 +59,29 @@ const NormalContent: React.FC = () => {
       navigate(route.pathname);
       setActiveKey(route.pathname);
     }
+
+    const _menuInfo = getDefaultMenu();
+    // setMenuList(_menuInfo);
+    dispatch(setMenuTabs(_menuInfo));
   }, []);
 
   useEffect(() => {
     navigate(route.pathname);
     setActiveKey(route.pathname);
+    if (route.pathname === '/') {
+      navigate('/wel/index');
+      setActiveKey('/wel/index');
+    }
   }, [route.pathname]);
 
   const add = () => {
     const newActiveKey = `newTab${newTabIndex.current++}`;
-    setItems([
-      ...items,
-      { label: 'New Tab', children: 'New Tab Pane', key: newActiveKey },
-    ]);
     setActiveKey(newActiveKey);
   };
 
   const remove = (targetKey: TargetKey) => {
-    console.log('targetKey', targetKey);
-    const targetIndex = items.findIndex((pane) => pane.key === targetKey);
-    const newPanes = items.filter((pane) => pane.key !== targetKey);
-    if (newPanes.length && targetKey === activeKey) {
-      const { key } =
-        newPanes[
-          targetIndex === newPanes.length ? targetIndex - 1 : targetIndex
-        ];
-      setActiveKey(key);
-    }
-    setItems(newPanes);
+    const _newMenu = removeOpenMenu(targetKey);
+    dispatch(setMenuTabs(_newMenu?.tabs));
   };
 
   const onEdit = (targetKey: TargetKey, action: 'add' | 'remove') => {
@@ -93,9 +94,6 @@ const NormalContent: React.FC = () => {
 
   return (
     <div>
-      {/* <div style={{ marginBottom: 16 }}>
-        <Button onClick={add}>ADD</Button>
-      </div> */}
       <Tabs
         hideAdd
         onChange={onChange}
@@ -103,27 +101,28 @@ const NormalContent: React.FC = () => {
         type='editable-card'
         onEdit={onEdit}
       >
-        {map(RouteList, (pane) => {
+        {map(menuTabs, (pane) => {
           return (
             <Tabs.TabPane
-              closable={pane?.path !== '/wel/index'}
-              // tab={<Popover {...this.props} pane={pane} index={pane?.path} />}
-              tab={pane?.path}
-              key={pane?.path}
+              closable={pane?.key !== '/wel/index'}
+              // tab={<Popover {...this.props} pane={pane} index={pane?.key} />}
+              tab={pane?.title}
+              key={pane?.key}
             >
               <Routes>
-                {getRoutesContainsSelf(pane?.path).map(
-                  (item: any, key: React.Key | null | undefined) => {
-                    const AsyncHome = AsyncComponent(item?.component);
-                    return (
-                      <Route
-                        path={item?.path}
-                        element={<AsyncHome />}
-                        key={key}
-                      />
-                    );
-                  }
-                )}
+                {menuTabs.length > 0 &&
+                  getRoutesContainsSelf(menuTabs).map(
+                    (item: any, key: React.Key | null | undefined) => {
+                      const AsyncHome = AsyncComponent(item?.component);
+                      return (
+                        <Route
+                          path={item?.path}
+                          element={<AsyncHome />}
+                          key={key}
+                        />
+                      );
+                    }
+                  )}
               </Routes>
             </Tabs.TabPane>
           );

@@ -6,14 +6,14 @@
     "moduleResolution": "node",
     "rootDir": "./src",
     "baseUrl": ".",
-    "paths": {
-      "common/*": [
-        "src/common/*"
-      ],
-      "@/*": [
-        "src/*"
-      ]
-    },
+    // "paths": {
+    //   "common/*": [
+    //     "src/common/*"
+    //   ],
+    //   "@/*": [
+    //     "src/*"
+    //   ]
+    // },
     "strict": true,
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
