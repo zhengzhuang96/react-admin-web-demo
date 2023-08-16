@@ -2,7 +2,7 @@
  * @Author: {zhengzhuang}
  * @Date: 2023-08-04 09:37:36
  * @LastEditors: {zhengzhuang}
- * @LastEditTime: 2023-08-15 18:34:40
+ * @LastEditTime: 2023-08-16 15:55:50
  * @Description:
  */
 const RouteList: any = [
@@ -14,7 +14,7 @@ const RouteList: any = [
   // Demo
   {
     path: `/system/application`,
-    component: () => import('../pages/demo'),
+    component: () => import('../pages/system'),
   },
   // Demo2
   {

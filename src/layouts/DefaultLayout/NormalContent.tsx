@@ -2,7 +2,7 @@
  * @Author: {zhengzhuang}
  * @Date: 2023-08-03 16:22:17
  * @LastEditors: {zhengzhuang}
- * @LastEditTime: 2023-08-16 15:25:10
+ * @LastEditTime: 2023-08-16 15:50:04
  * @Description:
  */
 import * as React from 'react';
@@ -53,8 +53,8 @@ const NormalContent: React.FC = () => {
 
   useEffect(() => {
     if (route.pathname === '/') {
-      navigate('/workplace');
-      setActiveKey('/workplace');
+      navigate('/wel/index');
+      setActiveKey('/wel/index');
     } else {
       navigate(route.pathname);
       setActiveKey(route.pathname);
