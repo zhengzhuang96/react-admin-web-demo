@@ -2,7 +2,7 @@
  * @Author: {zhengzhuang}
  * @Date: 2023-07-20 17:27:10
  * @LastEditors: {zhengzhuang}
- * @LastEditTime: 2023-08-16 13:33:39
+ * @LastEditTime: 2023-08-17 16:33:20
  * @Description:
  */
 import * as React from 'react';
@@ -21,7 +21,8 @@ const App: React.FC = () => {
         <Suspense>
           <BrowserRouter>
             <Routes>
-              <Route path='/public' element={<PublicLayout />} />
+              <Route path='/public/*' element={<PublicLayout />} />
+              <Route path='/lowcode/*' element={<PublicLayout />} />
               <Route path='*' element={<MainLayout />}></Route>
             </Routes>
           </BrowserRouter>
